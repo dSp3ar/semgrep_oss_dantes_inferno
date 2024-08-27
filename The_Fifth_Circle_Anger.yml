@@ -31,8 +31,3 @@ rules:
     severity: ERROR
     languages:
       - javascript
-    metadata:
-      category: security
-      technology: nodejs
-      references:
-        - https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html
