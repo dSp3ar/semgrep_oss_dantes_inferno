@@ -12,8 +12,3 @@ rules:
     severity: ERROR
     languages:
       - javascript
-    metadata:
-      category: security
-      technology: javascript
-      references:
-        - https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
