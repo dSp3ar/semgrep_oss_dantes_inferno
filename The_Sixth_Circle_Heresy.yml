@@ -1,0 +1,25 @@
+rules:
+  - id: MISSING-SECURITY-HEADERS
+    message: "This route has missing or dangerous security headers. Review security header configurations."
+    severity: ERROR
+    patterns:
+        - pattern-inside: |
+            app.$HTTP_METHOD('$ROUTE', (req, res) =>  { ... });
+        - pattern-not-inside: |
+            app.$HTTP_METHOD('$ROUTE', (req, res) =>  {
+              ...
+              res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+              ...
+              res.setHeader('X-Content-Type-Options', 'nosniff');
+              ...
+              res.setHeader('Content-Security-Policy', "default-src 'self'");
+              ...
+              res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+              ...
+              res.setHeader('Referrer-Policy', 'no-referrer');
+              ...
+              res.setHeader('Permissions-Policy', 'geolocation=(self)');
+              ...
+            });
+    languages:
+      - javascript

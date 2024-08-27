@@ -1,0 +1,7 @@
+rules:
+  - id: XML2XLSX-USAGE
+    message: "The use of xml2xlsx detected. Ensure proper validation and sanitization of XML input to prevent XXE attacks."
+    severity: WARNING
+    pattern: const $VAR = xml2xlsx($TEMPLATE);
+    languages:
+      - javascript

@@ -1,0 +1,12 @@
+rules:
+  - id: dangerous-eval-usage
+    pattern: eval(...)
+    message: "Avoid using eval with potentially unsafe input, as it can lead to security vulnerabilities like code injection."
+    severity: ERROR
+    languages:
+      - javascript
+    metadata:
+      category: security
+      technology: javascript
+      references:
+        - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval

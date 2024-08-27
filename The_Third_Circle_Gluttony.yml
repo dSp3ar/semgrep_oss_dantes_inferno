@@ -1,0 +1,19 @@
+rules:
+  - id: unsafe-innerhtml-assignment
+    patterns:
+      - pattern: $SELECTED.innerHTML = $UNSANITIZED_CONTENT;
+      - pattern-not-inside: |
+          function $FOO(...) {
+            ...
+            let $SANITIZED = sanitizeInput($USER_CONTENT);
+            ...
+          }
+    message: "Avoid assigning unsanitized user input to innerHTML, as it can lead to XSS vulnerabilities."
+    severity: ERROR
+    languages:
+      - javascript
+    metadata:
+      category: security
+      technology: javascript
+      references:
+        - https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML

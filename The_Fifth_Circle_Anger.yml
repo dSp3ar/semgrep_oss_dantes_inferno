@@ -1,0 +1,38 @@
+rules:
+  - id: unsafe-crypto-practices
+    pattern-either:
+      - patterns:
+          - pattern: await db.collection($COLLECTION_NAME).$MONGO_METHOD(...);
+          - pattern-not-inside: |
+              async function $FOO(...) {
+                ...
+                const $HASHED = crypto.createHash('sha256').update(...);
+                ...
+              }
+          - pattern-not-inside: |
+              async function $FOO(...) {
+                ...
+                const $HASHED = await bcrypt.hash(...);
+                ...
+              }
+          - pattern-not-inside: |
+              async function $FOO(...) {
+                ...
+                const $ENCRYPTED = crypto.createCipheriv('aes-256-cbc', ...);
+                ...
+              }
+          - pattern-not-inside: |
+              async function $FOO(...) {
+                ...
+                const $HMAC = crypto.createHmac('sha256', ...);
+                ...
+              }
+    message: "Avoid using weak cryptographic practices such as MD5, SHA1, DES, or RC4. Use stronger alternatives like SHA-256, bcrypt, AES-256, or HMAC-SHA256."
+    severity: ERROR
+    languages:
+      - javascript
+    metadata:
+      category: security
+      technology: nodejs
+      references:
+        - https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html

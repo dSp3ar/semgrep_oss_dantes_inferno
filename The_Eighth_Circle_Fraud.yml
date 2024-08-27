@@ -1,0 +1,9 @@
+rules:
+  - id: MISSING-SECURITY-HEADERS
+    message: "This Joi schema may have missing or dangerous validations. Review schema configurations."
+    severity: ERROR
+    patterns: 
+      - pattern-regex: Joi[.]string().*
+      - pattern-not-regex: .*(email|uri|valid|alphanum|uuid).*
+    languages:
+      - javascript

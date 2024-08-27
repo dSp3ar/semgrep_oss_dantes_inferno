@@ -1,0 +1,34 @@
+rules:
+  - id: unsafe-file-handling
+    patterns:
+      - pattern-either:
+        - patterns:
+          - pattern-inside: | 
+              app.post('$PATH', (req, res) => { 
+                ...
+              });
+          - pattern: $FILE.mv(...);
+        - patterns:
+          - pattern-inside: | 
+              app.get('$PATH', (req, res) => { 
+                ... 
+              });
+          - pattern-not-inside: | 
+              app.get('$PATH', (req, res) => { 
+                ...
+                if (validateFilename($FILENAME)) {
+                  ...
+                }
+                ...
+              });
+          - pattern: res.sendFile($FILEPATH);
+          
+    message: "Avoid unsafe file handling practices such as directly saving or serving files without proper validation to prevent security vulnerabilities like arbitrary file upload and path traversal attacks."
+    severity: ERROR
+    languages:
+      - javascript
+    metadata:
+      category: security
+      technology: express
+      references:
+        - https://expressjs.com/en/starter/static-files.html

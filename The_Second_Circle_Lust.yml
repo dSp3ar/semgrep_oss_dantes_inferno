@@ -1,0 +1,15 @@
+rules:
+  - id: unsafe-redirect-via-location
+    pattern-either:
+      - pattern: window.location.href = $URL;
+      - pattern: window.location.assign($URL);
+      - pattern: window.location.replace($URL);
+    message: "Avoid redirecting using potentially unsafe or unsanitized user input in 'window.location' methods to prevent open redirect vulnerabilities."
+    severity: ERROR
+    languages:
+      - javascript
+    metadata:
+      category: security
+      technology: javascript
+      references:
+        - https://developer.mozilla.org/en-US/docs/Web/API/Window/location
