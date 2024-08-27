@@ -27,8 +27,3 @@ rules:
     severity: ERROR
     languages:
       - javascript
-    metadata:
-      category: security
-      technology: express
-      references:
-        - https://expressjs.com/en/starter/static-files.html
